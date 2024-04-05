@@ -1,26 +1,24 @@
 {% set name = "googlemaps" %}
 {% set version = "4.10.0" %}
-{% set sha256 = "3055fcbb1aa262a9159b589b5e6af762b10e80634ae11c59495bd44867e47d88" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.tar.gz
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: {{ sha256 }}
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/googlemaps-{{ version }}.tar.gz
+  sha256: 3055fcbb1aa262a9159b589b5e6af762b10e80634ae11c59495bd44867e47d88
 
 build:
-  noarch: python
+  skip: true  # [py2k]
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   number: 0
-  script: python setup.py install --single-version-externally-managed --record record.txt
 
 requirements:
-  build:
+  host:
     - python >=3.8
     - requests >=2.20.0,<3.0
-    - setuptools
+    - pip
   run:
     - python >=3.8
     - requests >=2.20.0,<3.0
@@ -35,12 +33,9 @@ test:
 
 about:
   home: https://github.com/googlemaps/google-maps-services-python
+  summary: Python client library for Google Maps Platform
   license: Apache-2.0
-  license_family: Apache
-  license_file: '{{ environ["RECIPE_DIR"] }}/LICENSE'
-  summary: 'Python client library for Google Maps Platform'
-
-  
+  license_file: LICENSE  
   description: |
     Use Python? Want to geocode something? Looking for directions? Maybe matrices of directions? This library brings the Google Maps API Web Services to your Python application. Analytics
   doc_url: https://github.com/googlemaps/google-maps-services-python
