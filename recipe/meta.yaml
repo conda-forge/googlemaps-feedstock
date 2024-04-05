@@ -18,11 +18,11 @@ build:
 
 requirements:
   build:
-    - python
+    - python >=3.8
     - requests >=2.20.0,<3.0
     - setuptools
   run:
-    - python
+    - python >=3.8
     - requests >=2.20.0,<3.0
 
 test:
